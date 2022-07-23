@@ -164,6 +164,7 @@ class Posts(models.Model):
     avater = models.ImageField(null=True, blank=True)
     photo = models.FileField(null=True, blank=True)
     createdAt = models.DateTimeField(auto_now_add=True)
+    doxtype = models.CharField(max_length=200, null=True, blank=True)
     _id = models.AutoField(primary_key=True, editable=False)
 
     def __str__(self):
