@@ -22,7 +22,12 @@ urlpatterns = [
     # path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('user/', UserRecordView.as_view(), name='users'),
     path('session/<course>/',views.sessiondetails),
-    path('assignment/<course>/',views.assignmentdetails),
+    path('assignment/',views.assignmentdetails),
+    path('calender/<status>/', views.getCalender),  #added path
+    path('notice/<status>/', views.getNotice),          #added path
+    path('Assignment_teacher/<status>/', views.getAssignment_teacher),          #added path
+    path('Classes_teacher/<status>/', views.getClasses_teacher),          #added path
+    path('Announcement/<status>/', views.getClasses_teacher),          #added path
     path('document/<course>/',views.documentdetails),
     path('document/<course>/<name>/',views.alldocumentdetails),
     path('filterassignment/<status>/',views.filterassignment),

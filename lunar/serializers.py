@@ -3,7 +3,7 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 from django.utils.dateparse import parse_datetime
 from django.contrib.humanize.templatetags import humanize
-from .models import  Hero,Posts,Assignments,Documents,Course,Session,Student,Students,Teacher,Subject,Results,Attendance,AttendanceReport,Appointment
+from .models import  Hero,Posts,Assignments,Documents,Course,Session,Student,Students,Teacher,Subject,Results,Attendance,AttendanceReport,Appointment,Calender,Notice,Assignment_teacher,Classes_teacher,Announcement
 
 
 #User serializer
@@ -136,6 +136,25 @@ class StudentsSerializer(serializers.ModelSerializer):
         model = Students
         fields = '__all__'
 
+#class Student_courseSerializer(serializers.ModelSerializer):
+ #   class Meta:
+  #      model = Student_course
+   #     fields = '__all__'
+
+#calender
+class CalenderSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Calender
+        fields = '__all__'
+
+         
+
+#notice
+class NoticeSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Notice
+        fields = '__all__'
+
 
         
 #Teacher serializer
@@ -144,6 +163,30 @@ class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Teacher
         exclude = ['password']
+
+
+
+class Assignment_teacherSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Assignment_teacher
+        fields = '__all__'
+
+
+class Classes_teacherSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Classes_teacher
+        fields = '__all__'
+
+class AnnouncementSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Announcement
+        fields = '__all__'
+
+
+
 
 #Subject serializer
 class SubjectSerializer(serializers.ModelSerializer):
@@ -227,9 +270,31 @@ class AssignmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Assignments
         fields = '__all__'
+'''
+class Course_AssignmentSerializer(serializers.ModelSerializer):
+        getcreatedat = serializers.SerializerMethodField('getCreatedAt')
+        getdue = serializers.SerializerMethodField('getDue')
 
-  
+        def getCreatedAt(self,obj):
+            formatted_time = parse_datetime(str(obj.createdAt)).strftime('%d-%m-%Y')
+            return str(formatted_time)
 
+        def getDue(self,obj):
+            formatted_time = parse_datetime(str(obj.due)).strftime('%d-%m-%Y')
+            return str(formatted_time)
+
+        class Meta:
+            model = Course_Assignment
+            fields = '__all__'
+
+class Total_AssignmentSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Total_Assignment
+        fields = '__all__'
+
+
+'''
     
 class DocumentSerializer(serializers.ModelSerializer):
     getcreatedat = serializers.SerializerMethodField('getCreatedAt')

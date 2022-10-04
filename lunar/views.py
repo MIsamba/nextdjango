@@ -58,7 +58,7 @@ class MyTokenObtainPairView(TokenObtainPairView):
 
 #hero test
 class HeroViewSet(viewsets.ModelViewSet):
-    queryset = Hero.objects.all().order_by('name')
+    queryset = Hero.objects.all().order_by('id')
     serializer_class = HeroSerializer
 
 
@@ -129,6 +129,38 @@ def getStudent(request):
 def getStudents(request):
     students = Students.objects.all()
     serializer = StudentsSerializer(students, many =True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def getCalender(request):
+    calender = Calender.objects.all()
+    serializer = CalenderSerializer(calender, many =True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def getNotice(request):
+    notice = Notice.objects.all()
+    serializer = NoticeSerializer(notice, many =True)
+    return Response(serializer.data)
+
+@api_view(['POST'])  
+def getAssignment_teacher(request):
+    assignment_teacher= Assignment_teacher.objects.all()
+    serializer = Assignment_teacherSerializer(assignment_teacher, many =True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])  
+def getClasses_teacher(request):
+    classes_teacher= Classes_teacher.objects.all()
+    serializer = Classes_teacherSerializer(classes_teacher, many =True)
+    return Response(serializer.data)
+
+@api_view(['GET'])  
+def getAnnouncement(request):
+    announcement= Announcement.objects.all()
+    serializer = AnnouncementSerializer(announcement, many =True)
     return Response(serializer.data)
 
 

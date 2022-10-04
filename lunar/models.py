@@ -5,7 +5,7 @@ from django.utils import timezone
 from django.contrib.auth.models import (BaseUserManager, AbstractBaseUser)
 
 #Student model
-class Students(models.Model):
+class Students(models.Model):   # not defined
     first_name = models.CharField(max_length=200,null=True,blank=True)
     username=models.CharField(max_length=200,null=True,blank=True)
     email=models.CharField(max_length=200,null=True,blank=True)
@@ -22,24 +22,177 @@ class Students(models.Model):
             return self.email
 
 #hero model
-class Hero(models.Model):
-    name = models.CharField(max_length=60,null=True)
-    alias = models.CharField(max_length=60,null=True)
+class Hero(models.Model):       # defined
+    #name = models.CharField(max_length=60,null=True)
+    surname = models.CharField(max_length=60,null=True)  #added
     first_name = models.CharField(max_length=200,null=True,blank=True)
-    username=models.CharField(max_length=200,null=True,blank=True)
+    middle_name = models.CharField(max_length=200,null=True,blank=True)
+    gender=models.CharField(max_length=200,null=True,blank=True)
     email=models.CharField(max_length=200,null=True,blank=True)
     phoneNumber=models.CharField(max_length=200,null=True,blank=True)
     student_id=models.CharField(max_length=200,null=True,blank=True)
     college=models.CharField(max_length=200,null=True,blank=True)
     course= models.CharField(max_length=200,null=True,blank=True)
     year_of_enrollment=models.CharField(max_length=200,null=True,blank=True)
-    profile_photo=models.CharField(max_length=200,null=True,blank=True)
-    gender=models.CharField(max_length=200,null=True,blank=True)
     password=models.CharField(max_length=200,null=True,blank=True)
-      
-    def __str__(self):
-        return self.name
+    student_id=models.CharField(max_length=200,null=True,blank=True)
 
+
+    #alias = models.CharField(max_length=60,null=True)
+    #username=models.CharField(max_length=200,null=True,blank=True)
+    profile_photo=models.CharField(max_length=200,null=True,blank=True)   # not defined
+
+    def __str__(self):
+        return self.surname
+
+    
+    
+#Appointment model
+class Appointment(models.Model):
+    appointment_date = models.DateField(null = True)
+    appointment_time = models.TimeField(null = True)
+    reason = models.CharField(max_length=200, null=True, blank=True)
+    assignment_id = models.CharField(max_length=200, null=True, blank=True)      # added per xsheet
+    student_id = models.CharField(max_length=200, null=True, blank=True)
+
+    #id = models.AutoField(primary_key=True)      
+    #appointment_message = models.ForeignKey(Attendance, on_delete=models.CASCADE)
+    #status = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.reason)
+
+class Assignments(models.Model):
+    course = models.CharField(max_length=200, null=True, blank=True)
+    description = models.CharField(max_length=200, null=True, blank=True)   # added per xsheet
+    attachment = models.FileField(null=True, blank=True)
+    group = models.CharField(max_length=200, null=True, blank=True)             # added per xsheet
+    assignment_id = models.CharField(max_length=200, null=True, blank=True)      # added per xsheet
+    student_id = models.CharField(max_length=200, null=True, blank=True)     # added per xsheet
+
+    
+    type = models.CharField(max_length=200, null=True, blank=True)
+    due = models.DateTimeField(null=True, blank=True)
+    createdAt = models.DateTimeField(auto_now_add=True)
+    _id = models.AutoField(primary_key=True, editable=False)
+    completed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.course)
+    
+class Calender(models.Model):
+    date = models.DateField(null = True)
+    time = models.TimeField(null = True)
+    reason = models.CharField(max_length=200, null=True, blank=True)
+    group = models.CharField(max_length=200, null=True, blank=True)             # added per xsheet
+    notification = models.CharField(max_length=200, null=True, blank=True)      # added per xsheet
+    teacher_id = models.CharField(max_length=200, null=True, blank=True)
+          
+    def __str__(self):
+        return str(self.reason)
+
+class Notice(models.Model):
+    title = models.CharField(max_length=200, null=True, blank=True)
+    description = models.CharField(max_length=200, null=True, blank=True)   # added per xsheet
+    attachment = models.FileField(null=True, blank=True)
+    group = models.CharField(max_length=200, null=True, blank=True)             # added per xsheet
+    notice_id = models.CharField(max_length=200, null=True, blank=True)      # added per xsheet
+    
+    def __str__(self):
+         return str(self.title)
+
+
+
+
+#Teacher model
+
+class Teacher(models.Model):
+        
+    _id = models.AutoField(primary_key=True,editable=False)
+    title =  models.CharField(max_length=200, null=True, blank = True)
+    surname = models.CharField(max_length=200, null=True, blank = True)
+    firstname = models.CharField(max_length=200,null=True,blank=True)
+    middlename = models.CharField(max_length=200,null=True,blank=True)
+    email = models.EmailField(unique = True,null=True, blank = True)
+    phone = models.IntegerField(null = True)
+    college = models.CharField(max_length=200, null=True, blank = True)
+    dept =  models.CharField(max_length=200, null=True, blank = True)
+    course =  models.CharField(max_length=200, null=True, blank = True)
+    building = models.CharField(max_length=200, null=True, blank = True)
+    officenumber = models.CharField(max_length=200, null=True, blank = True)
+    password = models.CharField(max_length=200,null=True,blank=True)
+    profile =  models.ImageField(null=True, blank=True)
+    Teacher_id = models.IntegerField(null = True)
+
+    #Teacher_name = models.CharField(max_length=200,null=True,blank=True)
+    #Teacher_subject = models.CharField(max_length=200, null=True, blank = True)
+    #Teacher_total =  models.IntegerField(null=True,blank=True,default=0)
+    #lastname = models.CharField(max_length=200, null=True, blank = True)
+   
+    def __str__(self):
+        return str(self.surname)
+
+
+    
+
+class Posts(models.Model):
+    title = models.CharField(max_length=200, null=True, blank=True)
+    description = models.CharField(max_length=200, null=True, blank=True)
+    photo = models.FileField(null=True, blank=True)
+    group = models.CharField(max_length=200, null=True, blank=True)             # added per xsheet
+    _id = models.CharField(max_length=200, null=True, blank=True)             # added per xsheet
+    
+    #name = models.CharField(max_length=200, null=True, blank=True)
+    #avater = models.ImageField(null=True, blank=True)
+    #createdAt = models.DateTimeField(auto_now_add=True)
+    doxtype = models.CharField(max_length=200, null=True, blank=True)
+    nw_id = models.AutoField(primary_key=True,editable=False)
+
+   
+    def __str__(self):
+        return str(self.title)
+
+
+# assignment data table (teacher)
+class Assignment_teacher(models.Model):
+    title = models.CharField(max_length=200, null=True, blank=True)
+    description = models.CharField(max_length=200, null=True, blank=True)   # added per xsheet
+    attachment = models.FileField(null=True, blank=True)
+    group = models.CharField(max_length=200, null=True, blank=True)             # added per xsheet
+    assignment_id = models.CharField(max_length=200, null=True, blank=True)      # added per xsheet
+    teacher_id = models.CharField(max_length=200, null=True, blank=True)     # added per xsheet
+
+    
+    
+    def __str__(self):
+        return str(self.title)
+
+
+class Classes_teacher(models.Model):
+    name = models.CharField(max_length=200, null=True, blank=True)
+    description = models.CharField(max_length=200, null=True, blank=True)   # added per xsheet
+    group = models.CharField(max_length=200, null=True, blank=True)             # added per xsheet
+    classes_id = models.CharField(max_length=200, null=True, blank=True)      # added per xsheet
+    teacher_id = models.CharField(max_length=200, null=True, blank=True)     # added per xsheet
+
+    
+    
+    def __str__(self):
+        return str(self.name)
+
+class Announcement(models.Model):
+    title = models.CharField(max_length=200, null=True, blank=True)
+    description = models.CharField(max_length=200, null=True, blank=True)   # added per xsheet
+    photo = models.FileField(null=True, blank=True)
+    group = models.CharField(max_length=200, null=True, blank=True)             # added per xsheet
+    announcement_id = models.CharField(max_length=200, null=True, blank=True)      # added per xsheet
+
+
+    
+    def __str__(self):
+        return str(self.title)
+
+    
 #Course model
 class Course(models.Model):
     course_code = models.IntegerField()
@@ -75,30 +228,6 @@ class Student(models.Model):
 
     def __str__(self):
         return self.student_group
-
-#Teacher model
-class Teacher(models.Model):
-    Teacher_id = models.IntegerField(null = True)
-    Teacher_name = models.CharField(max_length=200,null=True,blank=True)
-    Teacher_subject = models.CharField(max_length=200, null=True, blank = True)
-    Teacher_total =  models.IntegerField(null=True,blank=True,default=0)
-    _id = models.AutoField(primary_key=True,editable=False)
-    password = models.CharField(max_length=200,null=True,blank=True)
-    profile =  models.ImageField(null=True, blank=True)
-    title =  models.CharField(max_length=200, null=True, blank = True)
-    lastname = models.CharField(max_length=200, null=True, blank = True)
-    middlename = models.CharField(max_length=200, null=True, blank = True)
-    surname = models.CharField(max_length=200, null=True, blank = True)
-    email = models.EmailField(unique = True,null=True, blank = True)
-    phone = models.IntegerField(null = True)
-    college = models.CharField(max_length=200, null=True, blank = True)
-    dept =  models.CharField(max_length=200, null=True, blank = True)
-    course =  models.CharField(max_length=200, null=True, blank = True)
-    officenumber = models.CharField(max_length=200, null=True, blank = True)
-    building = models.CharField(max_length=200, null=True, blank = True)
-
-    def __str__(self):
-        return str(self.Teacher_id)
 
  #Subject model
 class Subject(models.Model):
@@ -144,33 +273,6 @@ class AttendanceReport(models.Model):
     def __str__(self):
         return str(self.Attendance_id)
 
-#Appointment model
-class Appointment(models.Model):
-    id = models.AutoField(primary_key=True)
-    student_id = models.ForeignKey(Student, on_delete=models.DO_NOTHING)
-    appointment_date = models.DateField(null = True)
-    appointment_time = models.TimeField(null = True)
-    appointment_message = models.ForeignKey(Attendance, on_delete=models.CASCADE)
-    status = models.BooleanField(default=False)
-
-    def __str__(self):
-        return str(self.appointment_message)
-
-
-
-class Posts(models.Model):
-    description = models.CharField(max_length=200, null=True, blank=True)
-    name = models.CharField(max_length=200, null=True, blank=True)
-    avater = models.ImageField(null=True, blank=True)
-    photo = models.FileField(null=True, blank=True)
-    createdAt = models.DateTimeField(auto_now_add=True)
-    doxtype = models.CharField(max_length=200, null=True, blank=True)
-    _id = models.AutoField(primary_key=True, editable=False)
-
-    def __str__(self):
-        return str(self.name)
-
-
 class Documents(models.Model):
     name = models.CharField(max_length=200, null=True, blank=True)
     name_doc= models.CharField(max_length=200, null=True, blank=True)
@@ -184,17 +286,6 @@ class Documents(models.Model):
         return str(self.name)
 
 
-class Assignments(models.Model):
-    course = models.CharField(max_length=200, null=True, blank=True)
-    type = models.CharField(max_length=200, null=True, blank=True)
-    due = models.DateTimeField(null=True, blank=True)
-    attachment = models.FileField(null=True, blank=True)
-    createdAt = models.DateTimeField(auto_now_add=True)
-    _id = models.AutoField(primary_key=True, editable=False)
-    completed = models.BooleanField(default=False)
-
-    def __str__(self):
-        return str(self.course)
 
 
 
