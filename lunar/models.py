@@ -123,7 +123,7 @@ class Teacher(models.Model):
     password = models.CharField(max_length=200,null=True,blank=True)
     profile =  models.ImageField(null=True, blank=True)
     Teacher_id = models.IntegerField(null = True)
-
+    #fk = models.ForeignKey(Posts, on_delete=models.CASCADE)
     #Teacher_name = models.CharField(max_length=200,null=True,blank=True)
     #Teacher_subject = models.CharField(max_length=200, null=True, blank = True)
     #Teacher_total =  models.IntegerField(null=True,blank=True,default=0)
@@ -132,25 +132,28 @@ class Teacher(models.Model):
     def __str__(self):
         return str(self.surname)
 
-
+    
     
 
 class Posts(models.Model):
+
+    teacher = models.ForeignKey(Teacher, on_delete = models.CASCADE, related_name="teacher"
+    )
     title = models.CharField(max_length=200, null=True, blank=True)
     description = models.CharField(max_length=200, null=True, blank=True)
     photo = models.FileField(null=True, blank=True)
     group = models.CharField(max_length=200, null=True, blank=True)             # added per xsheet
-    _id = models.CharField(max_length=200, null=True, blank=True)             # added per xsheet
+    #_id = models.CharField(max_length=200, null=True, blank=True)             # added per xsheet
     
     #name = models.CharField(max_length=200, null=True, blank=True)
     #avater = models.ImageField(null=True, blank=True)
     #createdAt = models.DateTimeField(auto_now_add=True)
     doxtype = models.CharField(max_length=200, null=True, blank=True)
-    nw_id = models.AutoField(primary_key=True,editable=False)
+    _id = models.AutoField(primary_key=True,editable=False)
 
    
     def __str__(self):
-        return str(self.title)
+        return f"{self.teacher.Teacher_id} - {self.title}"
 
 
 # assignment data table (teacher)

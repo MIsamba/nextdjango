@@ -23,16 +23,19 @@ class HeroSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class  PostsSerializer(serializers.ModelSerializer):
-    datehumanize = serializers.SerializerMethodField('dateHumanize')
+    #datehumanize = serializers.SerializerMethodField('dateHumanize')
+    title = serializers.CharField(read_only = True,source="teacher.title")
+    phone = serializers.CharField(read_only = True,source="teacher.phone")
 
-    def dateHumanize(self,obj):
-        formatted_time = humanize.naturaltime(obj.createdAt)
-        return str(formatted_time)
+    #def dateHumanize(self,obj):
+        #formatted_time = humanize.naturaltime(obj.createdAt)
+        #return str(formatted_time)
     
     
     class Meta:
         model = Posts
         fields = '__all__'
+        extra_fields = ['profile','profile,surname,firstname,middlename']
 
 
 

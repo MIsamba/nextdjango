@@ -26,7 +26,10 @@ urlpatterns = [
     path('calender/<status>/', views.getCalender),  #added path
     path('notice/<status>/', views.getNotice),          #added path
     path('Assignment_teacher/<status>/', views.getAssignment_teacher),          #added path
+    path('teacher/', views.getTeacher),          #added path
+   
     path('Classes_teacher/<status>/', views.getClasses_teacher),          #added path
+    
     path('Announcement/<status>/', views.getClasses_teacher),          #added path
     path('document/<course>/',views.documentdetails),
     path('document/<course>/<name>/',views.alldocumentdetails),
