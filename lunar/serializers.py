@@ -24,11 +24,13 @@ class HeroSerializer(serializers.HyperlinkedModelSerializer):
 
 class  PostsSerializer(serializers.ModelSerializer):
     #datehumanize = serializers.SerializerMethodField('dateHumanize')
-    profile = serializers.CharField(read_only = True,source="teacher.profile")
+    title = serializers.CharField(read_only = True,source="teacher.title")
     surname = serializers.CharField(read_only = True,source="teacher.surname")
     firstname = serializers.CharField(read_only = True,source="teacher.firstname")
     middlename = serializers.CharField(read_only = True,source="teacher.middlename")
-
+    profile = serializers.CharField(read_only = True,source="teacher.profile")
+    
+    
 
     #def dateHumanize(self,obj):
         #formatted_time = humanize.naturaltime(obj.createdAt)
@@ -38,7 +40,7 @@ class  PostsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Posts
         fields = '__all__'
-        extra_fields = ['profile,surname,firstname,middlename']
+        extra_fields = ['title,profile,surname,firstname,middlename']
 
 
 

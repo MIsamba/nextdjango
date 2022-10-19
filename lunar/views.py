@@ -171,6 +171,12 @@ def getTeacher(request):
     return Response(serializer.data)
 
 
+@api_view(['POST'])
+def getTeacher(request):
+    teacher = Teacher.objects.all()
+    serializer = TeacherSerializer(teacher, many =True)
+    return Response(serializer.data)
+
 @api_view(['GET'])
 def getSubject(request):
     subject = Subject.objects.all()
