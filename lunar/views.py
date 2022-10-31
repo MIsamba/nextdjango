@@ -4,7 +4,6 @@ from rest_framework.response import Response
 from .models import *
 from .serializers import *
 from rest_framework.decorators import api_view
-from rest_framework.response import Response
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import status
@@ -78,7 +77,9 @@ class DocumentViewSet(viewsets.ModelViewSet):
     serializer_class= DocumentsSerializer
 
 
-@api_view(['POST'])
+# testing its only post request @api_view(['POST'])
+@api_view(['GET','POST'])
+
 def registerUser(request):
     data = request.data
     user = User.objects.create(
@@ -164,18 +165,22 @@ def getAnnouncement(request):
     return Response(serializer.data)
 
 
-@api_view(['GET'])
+#@api_view(['GET'])
+
+@api_view(['GET', 'POST'])
 def getTeacher(request):
     teacher = Teacher.objects.all()
     serializer = TeacherSerializer(teacher, many =True)
     return Response(serializer.data)
 
-
+'''
 @api_view(['POST'])
 def getTeacher(request):
     teacher = Teacher.objects.all()
     serializer = TeacherSerializer(teacher, many =True)
     return Response(serializer.data)
+'''
+
 
 @api_view(['GET'])
 def getSubject(request):
@@ -405,7 +410,7 @@ class LoadUserView(APIView):
                     {
                         "status": True,
                         "message": "Success",
-                        # "data": serializer.data,
+                        "data": serializer.data,
                         "user": user.data,
                         "isAuthenticated":True,
                     }
@@ -444,7 +449,7 @@ class TutorView(APIView):
         data = request.data
         id_number = data['Id_Number']
         title = data['title']
-        lastname = data['LastName']
+        #lastname = data['LastName']
         middlename = data['MiddleName']
         surname = data['Surname']
         email = data['Email']
@@ -452,7 +457,7 @@ class TutorView(APIView):
         college = data['College']
         dept = data['Department']
         course = data['Course']
-        officenumber = data['Office_Number'],
+        officenumber = data['Office_Number']
         password = data['password']
         building = data['Building']
 
@@ -462,7 +467,7 @@ class TutorView(APIView):
             Teacher.objects.create(
                 Teacher_id = id_number,
                 profile = request.FILES.get('profile_photo'),
-                # officenumber = officenumber,
+                officenumber = officenumber,
                 course = course,
                 dept = dept,
                 college = college,
@@ -470,26 +475,32 @@ class TutorView(APIView):
                 email = email,
                 surname = surname,
                 middlename = middlename,
-                lastname = lastname,
+                #lastname = lastname,
                 title = title,
                 password = password,
                 building = building
             )
 
-            User.objects.create_user(
+            
+            user=User.objects.create_user(
                 login_id = id_number,
                 password = password,
-                role = 'teacher'
+              #  role = 'teacher'                
             )
+            user = User.objects.get(id= user.id)
+            user.role = "teacher"
+            user.save()
             return Response({"status": True, "message": "Teacher created Successfully"})
         return Response({"status": False, "message": "Failed"})
     
-@api_view(['POST'])
+# @api_view(['POST'])
+
+@api_view(['GET', 'POST'])
 def TutorUpdate(request):
     data = request.data
     id_number = data['Id_Number']
     title = data['title']
-    lastname = data['LastName']
+    #lastname = data['LastName']
     middlename = data['MiddleName']
     surname = data['Surname']
     email = data['Email']
@@ -497,7 +508,7 @@ def TutorUpdate(request):
     college = data['College']
     dept = data['Department']
     course = data['Course']
-    officenumber = data['Office_Number'],
+    officenumber = data['Office_Number']
     print(officenumber)
     building = data['Building']
 
@@ -510,7 +521,7 @@ def TutorUpdate(request):
         teacher.email = email
         teacher.surname = surname
         teacher.middlename = middlename
-        teacher.lastname = lastname
+        #teacher.lastname = lastname
         teacher.title = title
         teacher.building = building
         teacher.officenumber = officenumber

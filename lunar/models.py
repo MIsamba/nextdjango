@@ -2,6 +2,7 @@ from django.db import models
 import datetime
 from .usermanager import MyUserManager
 from django.utils import timezone
+
 from django.contrib.auth.models import (BaseUserManager, AbstractBaseUser)
 
 #Student model
@@ -52,7 +53,7 @@ class Appointment(models.Model):
     appointment_date = models.DateField(null = True)
     appointment_time = models.TimeField(null = True)
     reason = models.CharField(max_length=200, null=True, blank=True)
-    assignment_id = models.CharField(max_length=200, null=True, blank=True)      # added per xsheet
+    appointment_id = models.CharField(max_length=200, null=True, blank=True)      # added per xsheet
     student_id = models.CharField(max_length=200, null=True, blank=True)
 
     #id = models.AutoField(primary_key=True)      

@@ -4,6 +4,7 @@ from rest_framework.validators import UniqueTogetherValidator
 from django.utils.dateparse import parse_datetime
 from django.contrib.humanize.templatetags import humanize
 from .models import  Hero,Posts,Assignments,Documents,Course,Session,Student,Students,Teacher,Subject,Results,Attendance,AttendanceReport,Appointment,Calender,Notice,Assignment_teacher,Classes_teacher,Announcement
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 #User serializer
@@ -13,6 +14,17 @@ class UserSerializer(serializers.ModelSerializer):
        model = User
        fields = ['login_id','role']
    
+#added   
+class UserSerializerWithToken(UserSerializer):
+    token = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email', 'firstName', 'lastName', 'token']
+
+    def get_token(self, obj):
+        token = RefreshToken.for_user(obj)
+        return str(token.access_token)
 
 
 #hero

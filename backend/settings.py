@@ -1,6 +1,7 @@
 from datetime import timedelta
 from pathlib import Path
 import os
+from telnetlib import AUTHENTICATION
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -145,3 +146,12 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer','Token', ),
     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken', ),
 }
+
+'''
+AUTHENTICATION_BACKEND = (
+
+    'guardian.backend.ObjectPermissionBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+'''
