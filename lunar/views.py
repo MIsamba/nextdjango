@@ -500,7 +500,6 @@ def TutorUpdate(request):
     data = request.data
     id_number = data['Id_Number']
     title = data['title']
-    #lastname = data['LastName']
     middlename = data['MiddleName']
     surname = data['Surname']
     email = data['Email']
@@ -521,7 +520,6 @@ def TutorUpdate(request):
         teacher.email = email
         teacher.surname = surname
         teacher.middlename = middlename
-        #teacher.lastname = lastname
         teacher.title = title
         teacher.building = building
         teacher.officenumber = officenumber
