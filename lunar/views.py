@@ -285,7 +285,7 @@ def PostView(request):
         data=json.loads(request.POST['data'])
         photo = request.FILES.get('photo')
         Posts.objects.create(
-            name = data['name'],
+            title = data['title'],
             description = data['description'],
             photo = photo
         )
@@ -301,7 +301,7 @@ def PostView(request):
 @api_view(['GET'])
 def PostDetailView(request,postname):
     try:
-        post = Posts.objects.filter(name = postname)
+        post = Posts.objects.filter(title = postname)
         serializer = PostsSerializer(post,many = True)
         return Response(serializer.data)
     except Exception as e:
@@ -312,7 +312,7 @@ def PostDetailView(request,postname):
 def PostViewUpdate(request,postname):
     try:
         data=json.loads(request.POST['data'])
-        Posts.objects.filter(name = postname).update(name = data['name'],description = data['description'],photo = request.FILES.get('photo'))
+        Posts.objects.filter(title = postname).update(title = data['title'],description = data['description'],photo = request.FILES.get('photo'))
 
         return Response(
             {
@@ -326,7 +326,7 @@ def PostViewUpdate(request,postname):
 @api_view(['POST'])
 def PostViewDelete(request,postname):
     try:
-        Posts.objects.filter(name = postname).delete()
+        Posts.objects.filter(title = postname).delete()
 
         return Response(
             {
@@ -449,6 +449,7 @@ class TutorView(APIView):
         data = request.data
         id_number = data['Id_Number']
         title = data['title']
+        firstname = data['Firstname']
         #lastname = data['LastName']
         middlename = data['MiddleName']
         surname = data['Surname']
@@ -473,6 +474,7 @@ class TutorView(APIView):
                 college = college,
                 phone = phone,
                 email = email,
+                firstname = firstname,
                 surname = surname,
                 middlename = middlename,
                 #lastname = lastname,
@@ -500,6 +502,7 @@ def TutorUpdate(request):
     data = request.data
     id_number = data['Id_Number']
     title = data['title']
+    firstname = data['FirstName']
     middlename = data['MiddleName']
     surname = data['Surname']
     email = data['Email']
@@ -518,6 +521,7 @@ def TutorUpdate(request):
         teacher.college = college
         teacher.phone = phone
         teacher.email = email
+        teacher.firstname = firstname
         teacher.surname = surname
         teacher.middlename = middlename
         teacher.title = title

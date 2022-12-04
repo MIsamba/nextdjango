@@ -113,6 +113,7 @@ class Teacher(models.Model):
     title =  models.CharField(max_length=200, null=True, blank = True)
     surname = models.CharField(max_length=200, null=True, blank = True)
     firstname = models.CharField(max_length=200,null=True,blank=True)
+    #firstname = models.CharField(max_length=200,null=True,blank=True)
     middlename = models.CharField(max_length=200,null=True,blank=True)
     email = models.EmailField(unique = True,null=True, blank = True)
     phone = models.IntegerField(null = True)
@@ -122,7 +123,7 @@ class Teacher(models.Model):
     building = models.CharField(max_length=200, null=True, blank = True)
     officenumber = models.CharField(max_length=200, null=True, blank = True)
     password = models.CharField(max_length=200,null=True,blank=True)
-    profile =  models.ImageField(null=True, blank=True)
+    profile =  models.ImageField(null=False, blank=False)
     Teacher_id = models.IntegerField(null = True)
     #fk = models.ForeignKey(Posts, on_delete=models.CASCADE)
     #Teacher_name = models.CharField(max_length=200,null=True,blank=True)
@@ -142,7 +143,7 @@ class Posts(models.Model):
     )
     title = models.CharField(max_length=200, null=True, blank=True)
     description = models.CharField(max_length=200, null=True, blank=True)
-    photo = models.FileField(null=True, blank=True)
+    photo = models.FileField(null=False, blank=False)
     group = models.CharField(max_length=200, null=True, blank=True)             # added per xsheet
     #_id = models.CharField(max_length=200, null=True, blank=True)             # added per xsheet
     
