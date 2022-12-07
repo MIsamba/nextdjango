@@ -3,7 +3,7 @@ from .models import *
 
 # Register your models here.
 
-#admin.site.register(Course)
+admin.site.register(Course)
 #admin.site.register(Session)
 #admin.site.register(Student)
 #admin.site.register(Students)
@@ -16,7 +16,7 @@ admin.site.register(Classes_teacher)
 admin.site.register(Announcement)
 
 
-#admin.site.register(Subject)
+admin.site.register(Subject)
 
 admin.site.register(Hero)
 admin.site.register(Assignments)

@@ -71,7 +71,6 @@ class AssignmentViewSet(viewsets.ModelViewSet):
     serializer_class= AssignmentsSerializer
     
 
-
 class DocumentViewSet(viewsets.ModelViewSet):  
     queryset  = Documents.objects.all()
     serializer_class= DocumentsSerializer
@@ -500,7 +499,7 @@ class TutorView(APIView):
 @api_view(['GET', 'POST'])
 def TutorUpdate(request):
     data = request.data
-    id_number = data['Id_Number']
+    id_number = data['_id']
     title = data['title']
     firstname = data['FirstName']
     middlename = data['MiddleName']

@@ -28,7 +28,10 @@ class UserSerializerWithToken(UserSerializer):
 
 
 #hero
-class HeroSerializer(serializers.HyperlinkedModelSerializer):
+#class HeroSerializer(serializers.HyperlinkedModelSerializer):
+
+class HeroSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Hero
         fields = '__all__'
@@ -127,6 +130,8 @@ class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = '__all__'
+
+
 
 
 #Session serializer
