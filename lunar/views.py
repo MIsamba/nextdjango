@@ -170,15 +170,13 @@ def getAnnouncement(request):
 def getTeacher(request):
     teacher = Teacher.objects.all()
     serializer = TeacherSerializer(teacher, many =True)
-    return Response(serializer.data)
+    if serializer.is_valid():
+        return Response(serializer.data)
+    else:
+        return Response(serializer.error, status_code=status.HTTP_400_BAD_REQUEST)
 
-'''
-@api_view(['POST'])
-def getTeacher(request):
-    teacher = Teacher.objects.all()
-    serializer = TeacherSerializer(teacher, many =True)
-    return Response(serializer.data)
-'''
+
+
 
 
 @api_view(['GET'])
