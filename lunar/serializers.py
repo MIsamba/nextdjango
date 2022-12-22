@@ -3,7 +3,7 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 from django.utils.dateparse import parse_datetime
 from django.contrib.humanize.templatetags import humanize
-from .models import  Hero,Posts,Assignments,Documents,Course,Session,Student,Students,Teacher,Subject,Results,Attendance,AttendanceReport,Appointment,Calender,Notice,Assignment_teacher,Classes_teacher,Announcement
+from .models import  Hero,Posts,Assignments,Documents,Collage,Course,Session,Student,Students,Teacher,Subject,Results,Attendance,AttendanceReport,Appointment,Calender,Notice,Assignment_teacher,Classes_teacher,Announcement
 from rest_framework_simplejwt.tokens import RefreshToken
 
 
@@ -118,6 +118,14 @@ class  DocumentsSerializer(serializers.HyperlinkedModelSerializer):
 
 
 """
+
+#collage serializer
+
+class CollageSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Collage
+        fields = '__all__'
 
 
 

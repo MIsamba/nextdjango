@@ -22,6 +22,16 @@ class Students(models.Model):   # not defined
     def __str__(self):
             return self.email
 
+#College model
+class Collage (models.Model):
+    id = models.AutoField(primary_key=True)
+    code = models.IntegerField()
+    name = models.CharField(max_length=200, null=True, blank=True)
+    #total = models.CharField(max_length=200, null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
 
 
 #Course model
@@ -30,9 +40,41 @@ class Course(models.Model):
     course_code = models.IntegerField()
     course_name = models.CharField(max_length=200, null=True, blank=True)
     course_total = models.CharField(max_length=200, null=True, blank=True)
+    collage_id = models.ForeignKey(Collage, on_delete=models.DO_NOTHING, default=1)
 
     def __str__(self):
         return self.course_name
+        
+#Teacher model
+
+class Teacher(models.Model):
+        
+    _id = models.AutoField(primary_key=True,editable=False)
+    title =  models.CharField(max_length=200, null=True, blank = True)
+    surname = models.CharField(max_length=200, null=True, blank = True)
+    firstname = models.CharField(max_length=200,null=True,blank=True)
+    middlename = models.CharField(max_length=200,null=True,blank=True)
+    email = models.EmailField(unique = True,null=True, blank = True)
+    phone = models.IntegerField(null = True)
+    college = models.CharField(max_length=200, null=True, blank = True)
+    dept =  models.CharField(max_length=200, null=True, blank = True)
+    #course =  models.CharField(max_length=200, null=True, blank = True)
+    course_id = models.ForeignKey(Course, on_delete=models.DO_NOTHING, default=1)  # to be removed
+   # subject_id = models.ForeignKey(Subject, on_delete=models.DO_NOTHING, default=1) 
+
+    building = models.CharField(max_length=200, null=True, blank = True)
+    officenumber = models.CharField(max_length=200, null=True, blank = True)
+    password = models.CharField(max_length=200,null=True,blank=True)
+    profile =  models.ImageField(null=False, blank=False)
+    Teacher_id = models.IntegerField(null = True)
+    #fk = models.ForeignKey(Posts, on_delete=models.CASCADE)
+    #Teacher_name = models.CharField(max_length=200,null=True,blank=True)
+    #Teacher_subject = models.CharField(max_length=200, null=True, blank = True)
+    #Teacher_total =  models.IntegerField(null=True,blank=True,default=0)
+    #lastname = models.CharField(max_length=200, null=True, blank = True)
+   
+    def __str__(self):
+        return str(self.surname)
 
 
 #hero model
@@ -48,6 +90,7 @@ class Hero(models.Model):       # defined
     college=models.CharField(max_length=200,null=True,blank=True)
     course= models.CharField(max_length=200,null=True,blank=True)
     course_id = models.ForeignKey(Course, on_delete=models.DO_NOTHING, default=1)
+   # subject_id = models.ForeignKey(Subject, on_delete=models.DO_NOTHING, default=1)
     year_of_enrollment=models.CharField(max_length=200,null=True,blank=True)
     password=models.CharField(max_length=200,null=True,blank=True)
     student_id=models.CharField(max_length=200,null=True,blank=True)
@@ -60,7 +103,20 @@ class Hero(models.Model):       # defined
     def __str__(self):
         return self.surname
 
-    
+#Subject model
+class Subject(models.Model):
+
+        Subject_name = models.CharField(max_length=200,null=True,blank=True)
+        _id = models.AutoField(primary_key=True,editable=False)
+        course_id = models.ForeignKey(Course, on_delete=models.CASCADE, default=1) #need to give defauult course
+        Teacher_id = models.ForeignKey(Teacher, on_delete=models.CASCADE)
+        Student_id =  models.ForeignKey(Hero, on_delete=models.CASCADE)
+            
+
+        def __str__(self):
+            return self.Subject_name
+
+
     
 #Appointment model
 class Appointment(models.Model):
@@ -118,38 +174,6 @@ class Notice(models.Model):
     
     def __str__(self):
          return str(self.title)
-
-
-
-
-#Teacher model
-
-class Teacher(models.Model):
-        
-    _id = models.AutoField(primary_key=True,editable=False)
-    title =  models.CharField(max_length=200, null=True, blank = True)
-    surname = models.CharField(max_length=200, null=True, blank = True)
-    firstname = models.CharField(max_length=200,null=True,blank=True)
-    middlename = models.CharField(max_length=200,null=True,blank=True)
-    email = models.EmailField(unique = True,null=True, blank = True)
-    phone = models.IntegerField(null = True)
-    college = models.CharField(max_length=200, null=True, blank = True)
-    dept =  models.CharField(max_length=200, null=True, blank = True)
-    #course =  models.CharField(max_length=200, null=True, blank = True)
-    course_id = models.ForeignKey(Course, on_delete=models.DO_NOTHING, default=1)
-    building = models.CharField(max_length=200, null=True, blank = True)
-    officenumber = models.CharField(max_length=200, null=True, blank = True)
-    password = models.CharField(max_length=200,null=True,blank=True)
-    profile =  models.ImageField(null=False, blank=False)
-    Teacher_id = models.IntegerField(null = True)
-    #fk = models.ForeignKey(Posts, on_delete=models.CASCADE)
-    #Teacher_name = models.CharField(max_length=200,null=True,blank=True)
-    #Teacher_subject = models.CharField(max_length=200, null=True, blank = True)
-    #Teacher_total =  models.IntegerField(null=True,blank=True,default=0)
-    #lastname = models.CharField(max_length=200, null=True, blank = True)
-   
-    def __str__(self):
-        return str(self.surname)
 
     
     
@@ -215,7 +239,7 @@ class Announcement(models.Model):
         return str(self.title)
 
     
-#Class model
+#Live session used in notification - tearch/subject FK to be added
 class Session(models.Model):
     course_name = models.CharField(max_length=200,blank=True, null= True,default="DEFAULT VALUE")
     tutor = models.CharField(max_length=200,null=False,blank=True)
@@ -244,19 +268,6 @@ class Student(models.Model):
 
     def __str__(self):
         return self.student_group
-
- #Subject model
-class Subject(models.Model):
-    Subject_id =models.IntegerField()
-    Subject_name = models.CharField(max_length=200,null=True,blank=True)
-    Subject_Teacher = models.CharField(max_length=200, null=True, blank = True)
-    _id = models.AutoField(primary_key=True,editable=False)
-    course_id = models.ForeignKey(Course, on_delete=models.CASCADE, default=1) #need to give defauult course
-    Teacher_id = models.ForeignKey(Teacher, on_delete=models.CASCADE)
-    
-
-    def __str__(self):
-        return self.Subject_name
 
 #Results model
 class Results(models.Model):
