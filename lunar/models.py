@@ -58,8 +58,8 @@ class Teacher(models.Model):
     phone = models.IntegerField(null = True)
     college = models.CharField(max_length=200, null=True, blank = True)
     dept =  models.CharField(max_length=200, null=True, blank = True)
-    #course =  models.CharField(max_length=200, null=True, blank = True)
-    course_id = models.ForeignKey(Course, on_delete=models.DO_NOTHING, default=1)  # to be removed
+    course =  models.CharField(max_length=200, null=True, blank = True)
+    #course_id = models.ForeignKey(Course, on_delete=models.DO_NOTHING, default=1)  # to be removed
    # subject_id = models.ForeignKey(Subject, on_delete=models.DO_NOTHING, default=1) 
 
     building = models.CharField(max_length=200, null=True, blank = True)
@@ -76,6 +76,18 @@ class Teacher(models.Model):
     def __str__(self):
         return str(self.surname)
 
+#Subject model
+class Subject(models.Model):
+
+        Subject_name = models.CharField(max_length=200,null=True,blank=True)
+        _id = models.AutoField(primary_key=True,editable=False)
+        course_id = models.ForeignKey(Course, on_delete=models.CASCADE, default=1) #need to give defauult course
+        Teacher_id = models.ForeignKey(Teacher, on_delete=models.CASCADE)
+            
+
+        def __str__(self):
+            return self.Subject_name
+
 
 #hero model
 class Hero(models.Model):       # defined
@@ -87,13 +99,13 @@ class Hero(models.Model):       # defined
     email=models.CharField(max_length=200,null=True,blank=True)
     phoneNumber=models.CharField(max_length=200,null=True,blank=True)
     student_id=models.CharField(max_length=200,null=True,blank=True)
-    college=models.CharField(max_length=200,null=True,blank=True)
-    course= models.CharField(max_length=200,null=True,blank=True)
+    #college=models.CharField(max_length=200,null=True,blank=True)
+    #course= models.CharField(max_length=200,null=True,blank=True)
     course_id = models.ForeignKey(Course, on_delete=models.DO_NOTHING, default=1)
-   # subject_id = models.ForeignKey(Subject, on_delete=models.DO_NOTHING, default=1)
+    subject_id = models.ForeignKey(Subject, on_delete=models.DO_NOTHING, default=1)
     year_of_enrollment=models.CharField(max_length=200,null=True,blank=True)
     password=models.CharField(max_length=200,null=True,blank=True)
-    student_id=models.CharField(max_length=200,null=True,blank=True)
+    #student_id=models.CharField(max_length=200,null=True,blank=True)
 
 
     #alias = models.CharField(max_length=60,null=True)
@@ -102,19 +114,6 @@ class Hero(models.Model):       # defined
 
     def __str__(self):
         return self.surname
-
-#Subject model
-class Subject(models.Model):
-
-        Subject_name = models.CharField(max_length=200,null=True,blank=True)
-        _id = models.AutoField(primary_key=True,editable=False)
-        course_id = models.ForeignKey(Course, on_delete=models.CASCADE, default=1) #need to give defauult course
-        Teacher_id = models.ForeignKey(Teacher, on_delete=models.CASCADE)
-        Student_id =  models.ForeignKey(Hero, on_delete=models.CASCADE)
-            
-
-        def __str__(self):
-            return self.Subject_name
 
 
     
@@ -140,7 +139,7 @@ class Assignments(models.Model):
     group = models.CharField(max_length=200, null=True, blank=True)             # added per xsheet
     assignment_id = models.CharField(max_length=200, null=True, blank=True)      # added per xsheet
     student_id = models.CharField(max_length=200, null=True, blank=True)     # added per xsheet
-   #student_idd = models.ForeignKey(Hero, on_delete=models.CASCADE)
+    student_idd = models.ForeignKey(Hero, on_delete=models.CASCADE)
     course_id = models.ForeignKey(Course, on_delete=models.CASCADE)
 
 
