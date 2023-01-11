@@ -55,10 +55,16 @@ class MyTokenObtainPairView(TokenObtainPairView):
 
 
 
-#hero test
+#hero test + tempo teacher auth
 class HeroViewSet(viewsets.ModelViewSet):
     queryset = Hero.objects.all().order_by('id')
     serializer_class = HeroSerializer
+
+class TechViewSet(viewsets.ModelViewSet):
+    queryset = Tech.objects.all().order_by('_id')
+    serializer_class = TechSerializer
+
+
 
 
 class PostViewSet(viewsets.ModelViewSet):

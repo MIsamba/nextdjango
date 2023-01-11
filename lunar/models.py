@@ -116,6 +116,31 @@ class Hero(models.Model):       # defined
         return self.surname
 
 
+#tech model temp
+class Tech(models.Model):       # defined
+       
+    _id = models.AutoField(primary_key=True,editable=False)
+    title =  models.CharField(max_length=200, null=True, blank = True)
+    surname = models.CharField(max_length=200, null=True, blank = True)
+    firstname = models.CharField(max_length=200,null=True,blank=True)
+    middlename = models.CharField(max_length=200,null=True,blank=True)
+    email = models.EmailField(unique = True,null=True, blank = True)
+    phone = models.IntegerField(null = True)
+    college = models.CharField(max_length=200, null=True, blank = True)
+    dept =  models.CharField(max_length=200, null=True, blank = True)
+    course =  models.CharField(max_length=200, null=True, blank = True)
+    #course_id = models.ForeignKey(Course, on_delete=models.DO_NOTHING, default=1)  # to be removed
+   # subject_id = models.ForeignKey(Subject, on_delete=models.DO_NOTHING, default=1) 
+
+    building = models.CharField(max_length=200, null=True, blank = True)
+    officenumber = models.CharField(max_length=200, null=True, blank = True)
+    password = models.CharField(max_length=200,null=True,blank=True)
+    profile =  models.ImageField(null=False, blank=False)
+    Teacher_id = models.IntegerField(null = True)
+   
+    def __str__(self):
+        return str(self.surname)
+
     
 #Appointment model
 class Appointment(models.Model):

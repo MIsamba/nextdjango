@@ -21,6 +21,9 @@ admin.site.register(Announcement)
 admin.site.register(Subject)
 
 admin.site.register(Hero)
+admin.site.register(Tech)
+
+
 admin.site.register(Assignments)
 admin.site.register(Attendance)
 admin.site.register(Appointment)
