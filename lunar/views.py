@@ -38,6 +38,26 @@ class UserRecordView(APIView):
             status=status.HTTP_400_BAD_REQUEST
         )
 
+    def get(self, format=None):
+        techs = Tech.objects.all()
+        serializer = TechSerializer(techs, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = TechSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=ValueError):
+            serializer.create(validated_data=request.data)
+            return Response(
+                serializer.data,
+                status=status.HTTP_201_CREATED
+            )
+        return Response(
+            {
+                "error": True,
+                "error_msg": serializer.error_messages,
+            },
+            status=status.HTTP_400_BAD_REQUEST
+        )
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -59,6 +79,7 @@ class MyTokenObtainPairView(TokenObtainPairView):
 class HeroViewSet(viewsets.ModelViewSet):
     queryset = Hero.objects.all().order_by('id')
     serializer_class = HeroSerializer
+
 
 class TechViewSet(viewsets.ModelViewSet):
     queryset = Tech.objects.all().order_by('_id')
@@ -123,7 +144,7 @@ class SessionViewSet(viewsets.ModelViewSet):
     queryset =  Session.objects.all()
     serializer_class= SessionSerializer
     
-    
+'''
 @api_view(['GET'])
 def getStudent(request):
     student = Student.objects.all()
@@ -136,7 +157,7 @@ def getStudents(request):
     students = Students.objects.all()
     serializer = StudentsSerializer(students, many =True)
     return Response(serializer.data)
-
+'''
 
 @api_view(['GET'])
 def getCalender(request):

@@ -5,29 +5,11 @@ from django.utils import timezone
 
 from django.contrib.auth.models import (BaseUserManager, AbstractBaseUser)
 
-#Student model
-class Students(models.Model):   # not defined
-    first_name = models.CharField(max_length=200,null=True,blank=True)
-    username=models.CharField(max_length=200,null=True,blank=True)
-    email=models.CharField(max_length=200,null=True,blank=True)
-    phoneNumber=models.CharField(max_length=200,null=True,blank=True)
-    student_id=models.CharField(max_length=200,null=True,blank=True)
-    college=models.CharField(max_length=200,null=True,blank=True)
-    course= models.CharField(max_length=200,null=True,blank=True)
-    year_of_enrollment=models.CharField(max_length=200,null=True,blank=True)
-    profile_photo=models.CharField(max_length=200,null=True,blank=True)
-    gender=models.CharField(max_length=200,null=True,blank=True)
-    password=models.CharField(max_length=200,null=True,blank=True)
-
-    def __str__(self):
-            return self.email
-
 #College model
 class Collage (models.Model):
     id = models.AutoField(primary_key=True)
     code = models.IntegerField()
     name = models.CharField(max_length=200, null=True, blank=True)
-    #total = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -67,31 +49,13 @@ class Teacher(models.Model):
     password = models.CharField(max_length=200,null=True,blank=True)
     profile =  models.ImageField(null=False, blank=False)
     Teacher_id = models.IntegerField(null = True)
-    #fk = models.ForeignKey(Posts, on_delete=models.CASCADE)
-    #Teacher_name = models.CharField(max_length=200,null=True,blank=True)
-    #Teacher_subject = models.CharField(max_length=200, null=True, blank = True)
-    #Teacher_total =  models.IntegerField(null=True,blank=True,default=0)
-    #lastname = models.CharField(max_length=200, null=True, blank = True)
    
     def __str__(self):
         return str(self.surname)
 
-#Subject model
-class Subject(models.Model):
-
-        Subject_name = models.CharField(max_length=200,null=True,blank=True)
-        _id = models.AutoField(primary_key=True,editable=False)
-        course_id = models.ForeignKey(Course, on_delete=models.CASCADE, default=1) #need to give defauult course
-        Teacher_id = models.ForeignKey(Teacher, on_delete=models.CASCADE)
-            
-
-        def __str__(self):
-            return self.Subject_name
-
 
 #hero model
 class Hero(models.Model):       # defined
-    #name = models.CharField(max_length=60,null=True)
     surname = models.CharField(max_length=60,null=True)  #added
     first_name = models.CharField(max_length=200,null=True,blank=True)
     middle_name = models.CharField(max_length=200,null=True,blank=True)
@@ -99,17 +63,14 @@ class Hero(models.Model):       # defined
     email=models.CharField(max_length=200,null=True,blank=True)
     phoneNumber=models.CharField(max_length=200,null=True,blank=True)
     student_id=models.CharField(max_length=200,null=True,blank=True)
-    #college=models.CharField(max_length=200,null=True,blank=True)
+    college=models.CharField(max_length=200,null=True,blank=True)
     #course= models.CharField(max_length=200,null=True,blank=True)
     course_id = models.ForeignKey(Course, on_delete=models.DO_NOTHING, default=1)
-    subject_id = models.ForeignKey(Subject, on_delete=models.DO_NOTHING, default=1)
+    #subject_id = models.ForeignKey(Subject, on_delete=models.DO_NOTHING, default=1)
     year_of_enrollment=models.CharField(max_length=200,null=True,blank=True)
     password=models.CharField(max_length=200,null=True,blank=True)
     #student_id=models.CharField(max_length=200,null=True,blank=True)
 
-
-    #alias = models.CharField(max_length=60,null=True)
-    #username=models.CharField(max_length=200,null=True,blank=True)
     profile_photo=models.CharField(max_length=200,null=True,blank=True)   # not defined
 
     def __str__(self):
@@ -141,6 +102,19 @@ class Tech(models.Model):       # defined
     def __str__(self):
         return str(self.surname)
 
+#Subject model
+class Subject(models.Model):
+
+        Subject_name = models.CharField(max_length=200,null=True,blank=True)
+        _id = models.AutoField(primary_key=True,editable=False)
+        course_id = models.ForeignKey(Course, on_delete=models.CASCADE, default=1) #need to give defauult course
+        Teacher_id = models.ForeignKey(Tech, on_delete=models.CASCADE)
+        student_id = models.ForeignKey(Hero, on_delete=models.CASCADE)
+        
+    
+        def __str__(self):
+            return self.Subject_name
+
     
 #Appointment model
 class Appointment(models.Model):
@@ -163,12 +137,11 @@ class Assignments(models.Model):
     attachment = models.FileField(null=True, blank=True)
     group = models.CharField(max_length=200, null=True, blank=True)             # added per xsheet
     assignment_id = models.CharField(max_length=200, null=True, blank=True)      # added per xsheet
-    student_id = models.CharField(max_length=200, null=True, blank=True)     # added per xsheet
-    student_idd = models.ForeignKey(Hero, on_delete=models.CASCADE)
-    course_id = models.ForeignKey(Course, on_delete=models.CASCADE)
+    #student_id = models.CharField(max_length=200, null=True, blank=True)     # added per xsheet
+    #student_idd = models.ForeignKey(Hero, on_delete=models.CASCADE)
+    #course_id = models.ForeignKey(Course, on_delete=models.CASCADE)
 
-
-    
+   
     type = models.CharField(max_length=200, null=True, blank=True)
     due = models.DateTimeField(null=True, blank=True)
     createdAt = models.DateTimeField(auto_now_add=True)

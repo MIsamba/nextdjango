@@ -3,7 +3,7 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 from django.utils.dateparse import parse_datetime
 from django.contrib.humanize.templatetags import humanize
-from .models import  Hero,Tech,Posts,Assignments,Documents,Collage,Course,Session,Student,Students,Teacher,Subject,Results,Attendance,AttendanceReport,Appointment,Calender,Notice,Assignment_teacher,Classes_teacher,Announcement
+from .models import  Hero,Tech,Posts,Assignments,Documents,Collage,Course,Session,Teacher,Subject,Results,Attendance,AttendanceReport,Appointment,Calender,Notice,Assignment_teacher,Classes_teacher,Announcement
 from rest_framework_simplejwt.tokens import RefreshToken
 
 
@@ -165,7 +165,7 @@ class SessionSerializer(serializers.ModelSerializer):
         model = Session
         fields = '__all__'
 
-
+'''
 #student serializer
 class StudentSerializer(serializers.ModelSerializer):
     
@@ -179,11 +179,7 @@ class StudentsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Students
         fields = '__all__'
-
-#class Student_courseSerializer(serializers.ModelSerializer):
- #   class Meta:
-  #      model = Student_course
-   #     fields = '__all__'
+'''
 
 #calender
 class CalenderSerializer(serializers.HyperlinkedModelSerializer):
@@ -277,7 +273,7 @@ class AttendanceSerializer(serializers.ModelSerializer):
 
 #Appointment serializer
 class  AppointmentSerializer(serializers.ModelSerializer):
-    student_id = StudentSerializer()
+  #  student_id = StudentSerializer()
     appointment_message = AttendanceSerializer()
     date = serializers.SerializerMethodField('getDate')
 
