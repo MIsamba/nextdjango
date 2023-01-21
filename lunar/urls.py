@@ -24,6 +24,7 @@ urlpatterns = [
     path('user/', UserRecordView.as_view(), name='users'),
     path('heroes/',views.HeroViewSet),
     path('subject/',views.getSubject),
+    path('collage/',views.getCollage),
     path('session/<course>/',views.sessiondetails),
     path('assignment/',views.assignmentdetails),
     path('calender/<status>/', views.getCalender),  #added path

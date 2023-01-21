@@ -96,7 +96,7 @@ class Tech(models.Model):       # defined
     building = models.CharField(max_length=200, null=True, blank = True)
     officenumber = models.CharField(max_length=200, null=True, blank = True)
     password = models.CharField(max_length=200,null=True,blank=True)
-    profile =  models.ImageField(null=False, blank=False)
+    profile =  models.ImageField(null=True, blank=False)
     Teacher_id = models.IntegerField(null = True)
    
     def __str__(self):
@@ -177,7 +177,7 @@ class Notice(models.Model):
 
 class Posts(models.Model):
 
-    teacher = models.ForeignKey(Teacher, on_delete = models.CASCADE, related_name="teacher"
+    teacher = models.ForeignKey(Tech, on_delete = models.CASCADE, related_name="teacher"
     )
     title = models.CharField(max_length=200, null=True, blank=True)
     description = models.CharField(max_length=200, null=True, blank=True)

@@ -134,6 +134,15 @@ def getUserProfile(request):
 
 
 @api_view(['GET'])
+def getCollage(request):
+    collage = Collage.objects.all()
+    serializer = CollageSerializer(collage, many =True)
+    return Response(serializer.data)
+
+
+
+
+@api_view(['GET'])
 def getCourses(request):
     courses = Course.objects.all()
     serializer = CourseSerializer(courses, many =True)
