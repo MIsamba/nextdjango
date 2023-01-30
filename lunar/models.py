@@ -81,7 +81,7 @@ class Hero(models.Model):       # defined
 class Tech(models.Model):       # defined
        
     _id = models.AutoField(primary_key=True,editable=False)
-    title =  models.CharField(max_length=200, null=True, blank = True)
+    title1 =  models.CharField(max_length=200, null=True, blank = True)
     surname = models.CharField(max_length=200, null=True, blank = True)
     firstname = models.CharField(max_length=200,null=True,blank=True)
     middlename = models.CharField(max_length=200,null=True,blank=True)
@@ -91,7 +91,7 @@ class Tech(models.Model):       # defined
     dept =  models.CharField(max_length=200, null=True, blank = True)
     course =  models.CharField(max_length=200, null=True, blank = True)
     #course_id = models.ForeignKey(Course, on_delete=models.DO_NOTHING, default=1)  # to be removed
-   # subject_id = models.ForeignKey(Subject, on_delete=models.DO_NOTHING, default=1) 
+   #subject_id = models.ForeignKey(Subject, on_delete=models.DO_NOTHING, default=1) 
 
     building = models.CharField(max_length=200, null=True, blank = True)
     officenumber = models.CharField(max_length=200, null=True, blank = True)
@@ -177,23 +177,20 @@ class Notice(models.Model):
 
 class Posts(models.Model):
 
-    teacher = models.ForeignKey(Tech, on_delete = models.CASCADE, related_name="teacher"
+    teacher = models.ForeignKey(Tech, on_delete = models.CASCADE, related_name="techy"
     )
-    title = models.CharField(max_length=200, null=True, blank=True)
+    tittle = models.CharField(max_length=200, null=True, blank=True)
     description = models.CharField(max_length=200, null=True, blank=True)
     photo = models.FileField(null=False, blank=False)
     group = models.CharField(max_length=200, null=True, blank=True)             # added per xsheet
-    #_id = models.CharField(max_length=200, null=True, blank=True)             # added per xsheet
-    
-    #name = models.CharField(max_length=200, null=True, blank=True)
-    #avater = models.ImageField(null=True, blank=True)
-    #createdAt = models.DateTimeField(auto_now_add=True)
     doxtype = models.CharField(max_length=200, null=True, blank=True)
     _id = models.AutoField(primary_key=True,editable=False)
 
    
     def __str__(self):
-        return f"{self.teacher.Teacher_id} - {self.title}"
+        return str(self.teacher.Teacher_id)
+
+      #  return f"{self.teacher.Teacher_id} - {self.title1}"
 
 
 # assignment data table (teacher)
