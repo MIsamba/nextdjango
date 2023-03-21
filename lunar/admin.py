@@ -6,7 +6,7 @@ from .models import *
 admin.site.register(Course)
 admin.site.register(Collage)
 
-#admin.site.register(Session)
+admin.site.register(Session)
 #admin.site.register(Student)
 #admin.site.register(Students)
 admin.site.register(Calender)

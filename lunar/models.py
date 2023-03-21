@@ -80,7 +80,7 @@ class Hero(models.Model):       # defined
 #tech model temp
 class Tech(models.Model):       # defined
        
-    _id = models.AutoField(primary_key=True,editable=False)
+    _id = models.CharField(primary_key=True,editable=False)
     title1 =  models.CharField(max_length=200, null=True, blank = True)
     surname = models.CharField(max_length=200, null=True, blank = True)
     firstname = models.CharField(max_length=200,null=True,blank=True)
@@ -237,7 +237,7 @@ class Announcement(models.Model):
 class Session(models.Model):
     course_name = models.CharField(max_length=200,blank=True, null= True,default="DEFAULT VALUE")
     tutor = models.CharField(max_length=200,null=False,blank=True)
-    course_code = models.ForeignKey(Course, on_delete=models.CASCADE, default=1) 
+    course_code = models.IntegerField(default = 0) #models.ForeignKey(Course, on_delete=models.CASCADE, default=1) 
     venue = models.CharField(max_length=200,null=False,blank=True)
     time = models.TimeField(auto_now = True)
     phone_no = models.IntegerField()
