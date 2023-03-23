@@ -80,7 +80,7 @@ class Hero(models.Model):       # defined
 #tech model temp
 class Tech(models.Model):       # defined
        
-    _id = models.CharField(primary_key=True,editable=False)
+    _id = models.CharField(primary_key=True,editable=False, max_length=200)
     title1 =  models.CharField(max_length=200, null=True, blank = True)
     surname = models.CharField(max_length=200, null=True, blank = True)
     firstname = models.CharField(max_length=200,null=True,blank=True)
@@ -98,7 +98,7 @@ class Tech(models.Model):       # defined
     password = models.CharField(max_length=200,null=True,blank=True)
     profile =  models.ImageField(null=True, blank=False)
     #Teacher_id = models.IntegerField(null = True)
-    Teacher_id = models.CharField(null = True)
+    Teacher_id = models.CharField(null = True, max_length=200)
 
     #Teacherid = models.CharField(max_length=200, null=True, blank = True)
 
