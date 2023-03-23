@@ -98,7 +98,9 @@ class Tech(models.Model):       # defined
     password = models.CharField(max_length=200,null=True,blank=True)
     profile =  models.ImageField(null=True, blank=False)
     #Teacher_id = models.IntegerField(null = True)
-    Teacherid = models.CharField(max_length=200, null=True, blank = True)
+    Teacher_id = models.CharField(null = True)
+
+    #Teacherid = models.CharField(max_length=200, null=True, blank = True)
 
    
     def __str__(self):
