@@ -79,8 +79,8 @@ class Hero(models.Model):       # defined
 
 #tech model temp
 class Tech(models.Model):       # defined
-    _id = models.AutoField(primary_key=True,editable=False)  
-   # _id = models.CharField(primary_key=True,editable=False, max_length=200)
+    #_id = models.AutoField(primary_key=True,editable=True,max_length=200)  
+    _id = models.CharField(primary_key=True,editable=True, max_length=200)
     title1 =  models.CharField(max_length=200, null=True, blank = True)
     surname = models.CharField(max_length=200, null=True, blank = True)
     firstname = models.CharField(max_length=200,null=True,blank=True)
